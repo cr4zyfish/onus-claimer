@@ -131,13 +131,16 @@ class ONUS:
                     user_info = self.user_info(data=data).json()
                     user_name = user_info["firstName"]
                     click_left = user_info["clickNumberLeft"]
-                    get_balance = self.get_balance(data=data).json()
-                    balance_click = get_balance[0]["amount"]
-                    balance_farm = get_balance[1]["amount"]
                     self.log(f"{green}User name: {white}{user_name}")
-                    self.log(
-                        f"{green}Total Balance: {white}{balance_click + balance_farm} (Click: {balance_click} - Farm: {balance_farm})"
-                    )
+                    get_balance = self.get_balance(data=data).json()
+                    for type in get_balance:
+                        earning_type = type["_id"]["earningType"]
+                        balance = type["amount"]
+                        self.log(
+                            f"{green}Balance {earning_type}: {white}{round(balance,2)}"
+                        )
+                    total_balance = sum(entry["amount"] for entry in get_balance)
+                    self.log(f"{green}Total balance: {white}{round(total_balance,2)}")
                     while True:
                         if click_left > 0:
                             self.log(f"{yellow}Trying to tap...")
@@ -146,10 +149,11 @@ class ONUS:
                             ).json()
                             click_left = start_click["clickNumberLeft"]
                             get_balance = self.get_balance(data=data).json()
-                            balance_click = get_balance[0]["amount"]
-                            balance_farm = get_balance[1]["amount"]
+                            total_balance = sum(
+                                entry["amount"] for entry in get_balance
+                            )
                             self.log(
-                                f"{green}Current Balance: {white}{balance_click + balance_farm} (Click: {balance_click} - Farm: {balance_farm})"
+                                f"{green}Current balance: {white}{round(total_balance,2)}"
                             )
                         else:
                             self.log(f"{yellow}No tap available!")
