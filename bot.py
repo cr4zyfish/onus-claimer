@@ -6,8 +6,10 @@ from colorama import *
 from datetime import datetime
 import json
 import cloudscraper
+from fake_useragent import UserAgent
 
 scraper = cloudscraper.create_scraper()
+ua = UserAgent()
 
 red = Fore.LIGHTRED_EX
 yellow = Fore.LIGHTYELLOW_EX
@@ -37,7 +39,7 @@ class ONUS:
             "Sec-Fetch-Dest": "empty",
             "Sec-Fetch-Mode": "cors",
             "Sec-Fetch-Site": "same-site",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "User-Agent": ua.random,
             "Wiley-TDM-Client-Token": "your-Wiley-TDM-Client-Token",
         }
 
