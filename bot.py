@@ -5,6 +5,9 @@ import requests
 from colorama import *
 from datetime import datetime
 import json
+import cloudscraper
+
+scraper = cloudscraper.create_scraper()
 
 red = Fore.LIGHTRED_EX
 yellow = Fore.LIGHTYELLOW_EX
@@ -35,6 +38,7 @@ class ONUS:
             "Sec-Fetch-Mode": "cors",
             "Sec-Fetch-Site": "same-site",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Wiley-TDM-Client-Token": "your-Wiley-TDM-Client-Token",
         }
 
         self.line = white + "~" * 50
@@ -59,9 +63,9 @@ class ONUS:
 
         headers = self.headers.copy()
 
-        payload = json.dumps({"initData": f"{data}"})
+        payload = {"initData": f"{data}"}
 
-        response = requests.post(url=url, headers=headers, data=payload)
+        response = scraper.post(url=url, headers=headers, json=payload)
 
         return response
 
@@ -70,9 +74,9 @@ class ONUS:
 
         headers = self.headers.copy()
 
-        payload = json.dumps({"initData": f"{data}"})
+        payload = {"initData": f"{data}"}
 
-        response = requests.post(url=url, headers=headers, data=payload)
+        response = scraper.post(url=url, headers=headers, json=payload)
 
         return response
 
@@ -81,9 +85,9 @@ class ONUS:
 
         headers = self.headers.copy()
 
-        payload = json.dumps({"initData": f"{data}", "click": click_num})
+        payload = {"initData": f"{data}", "click": click_num}
 
-        response = requests.post(url=url, headers=headers, data=payload)
+        response = scraper.post(url=url, headers=headers, json=payload)
 
         return response
 
@@ -92,9 +96,9 @@ class ONUS:
 
         headers = self.headers.copy()
 
-        payload = json.dumps({"initData": f"{data}"})
+        payload = {"initData": f"{data}"}
 
-        response = requests.post(url=url, headers=headers, data=payload)
+        response = scraper.post(url=url, headers=headers, json=payload)
 
         return response
 
@@ -103,9 +107,9 @@ class ONUS:
 
         headers = self.headers.copy()
 
-        payload = json.dumps({"initData": f"{data}"})
+        payload = {"initData": f"{data}"}
 
-        response = requests.post(url=url, headers=headers, data=payload)
+        response = scraper.post(url=url, headers=headers, json=payload)
 
         return response
 
